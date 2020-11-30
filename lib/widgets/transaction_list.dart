@@ -10,6 +10,7 @@ class TransactionList extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    print('build() TransactionList');
     return transactions.isEmpty
         ? LayoutBuilder(
             builder: (context, constraints) {
@@ -35,9 +36,10 @@ class TransactionList extends StatelessWidget {
             itemBuilder: (ctx, index) {
               return Card(
                 elevation: 5,
-                margin: EdgeInsets.symmetric(vertical: 5, horizontal: 8),
+                margin: const EdgeInsets.symmetric(vertical: 5, horizontal: 8),
                 child: ListTile(
                   leading: CircleAvatar(
+                    radius: 30,
                     child: Padding(
                       padding: const EdgeInsets.all(5.0),
                       child: FittedBox(
@@ -53,11 +55,11 @@ class TransactionList extends StatelessWidget {
                   trailing: MediaQuery.of(context).size.width > 460
                       ? FlatButton.icon(
                           onPressed: () => deleteTx(transactions[index].id),
-                          icon: Icon(Icons.delete),
+                          icon: const Icon(Icons.delete),
                           textColor: Theme.of(context).errorColor,
-                          label: Text('Устгах'))
+                          label: const Text('Устгах'))
                       : IconButton(
-                          icon: Icon(Icons.delete),
+                          icon: const Icon(Icons.delete),
                           color: Theme.of(context).errorColor,
                           onPressed: () => deleteTx(transactions[index].id),
                         ),

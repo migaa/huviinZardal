@@ -4,9 +4,11 @@ import 'package:intl/intl.dart';
 import '../models/transaction.dart';
 
 class Chart extends StatelessWidget {
-  final List<Transaction> recentTransaction;
+  final List<Transaction> recentTransactions;
 
-  Chart(this.recentTransaction);
+  Chart(this.recentTransactions) {
+    print('Chart constractor');
+  }
 
   List<Map<String, Object>> get groupedTransactionValues {
     return List.generate(7, (index) {
@@ -14,16 +16,16 @@ class Chart extends StatelessWidget {
 
       var totalSum = 0.0;
 
-      for (var i = 0; i < recentTransaction.length; i += 1) {
-        if (recentTransaction[i].date.day == weekDay.day &&
-            recentTransaction[i].date.month == weekDay.month &&
-            recentTransaction[i].date.year == weekDay.year) {
-          totalSum += recentTransaction[i].amount;
+      for (var i = 0; i < recentTransactions.length; i += 1) {
+        if (recentTransactions[i].date.day == weekDay.day &&
+            recentTransactions[i].date.month == weekDay.month &&
+            recentTransactions[i].date.year == weekDay.year) {
+          totalSum += recentTransactions[i].amount;
         }
       }
 
-      print(DateFormat.E().format(weekDay));
-      print(totalSum);
+      //print(DateFormat.E().format(weekDay));
+      //print(totalSum);
 
       return {'day': DateFormat.E().format(weekDay), 'amount': totalSum};
     }).reversed.toList();
@@ -37,7 +39,8 @@ class Chart extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    print(groupedTransactionValues);
+    print('build() Chart');
+    //print(groupedTransactionValues);
     return Card(
       elevation: 6,
       margin: EdgeInsets.all(20),
