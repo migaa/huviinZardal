@@ -54,11 +54,28 @@ class MyHomePage extends StatefulWidget {
   _MyHomePageState createState() => _MyHomePageState();
 }
 
-class _MyHomePageState extends State<MyHomePage> {
+class _MyHomePageState extends State<MyHomePage> with WidgetsBindingObserver {
   final List<Transaction> _userTransactions = [
     //Transaction(id: 't1', title: 'Tsamts', amount: 22.5, date: DateTime.now()),
     //Transaction(id: 't2', title: 'Huns', amount: 34.3, date: DateTime.now()),
   ];
+  bool _showChart = false;
+
+  @override
+  void initState() {
+    WidgetsBinding.instance.addObserver(this);
+    super.initState();
+  }
+
+  @override
+  didChangeAppLifecycleState(AppLifecycleState state) {
+    print(state);
+  }
+
+  dispose() {
+    WidgetsBinding.instance.removeObserver(this);
+    super.dispose();
+  }
 
   List<Transaction> get _recentTransactions {
     return _userTransactions.where((tx) {
@@ -96,8 +113,6 @@ class _MyHomePageState extends State<MyHomePage> {
           return NewTransaction(_addNewTransaction);
         });
   }
-
-  bool _showChart = false;
 
   List<Widget> _buildLandscapeContent(
       MediaQueryData mediaQuery, AppBar appBar, Widget txListWidget) {
